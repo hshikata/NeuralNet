@@ -5,26 +5,17 @@
 namespace onesimus {
 
 template<typename T>
-class Vector : private Matrix<T>
+class Vector : public Matrix<T>
 {
-public:
-	typedef typename Matrix<T>::DataContainerType DataContainerType;
-
 public:
 	Vector();
 	Vector(size_t size);
-	Vector(Matrix<T> const& mat);
 	
 public:
 	void Resize(size_t size);
 	
 	size_t Size() const;
 	
-	using Matrix<T>::begin;
-	using Matrix<T>::cbegin;
-	using Matrix<T>::end;
-	using Matrix<T>::cend;
-
 	T const& operator()(int index) const;
 	T& operator()(int index);
 	T const& operator[](int index) const;
@@ -51,6 +42,10 @@ operator*(Vector<T> const& vec, T val);
 template<typename T>
 Vector<T>
 operator*(T val, Vector<T> const& vec);
+
+template<typename T>
+Vector<T>
+operator*(Matrix<T> const& mat, Vector<T> const& vec);
 
 template<typename T>
 Vector<T>

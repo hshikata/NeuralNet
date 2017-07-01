@@ -23,6 +23,17 @@ TEST(Vector, Assignment)
 	ASSERT_EQ(vec[2], 8);
 }
 
+TEST(Vector, CopyConstructor)
+{
+	onesimus::Vector<int> v1(5);
+	v1(2) = 5;
+	ASSERT_EQ(v1(2), 5);
+
+	onesimus::Vector<int> v2(v1);
+	ASSERT_EQ(v1.Size(), v2.Size());
+	ASSERT_EQ(v2(2), 5);
+}
+
 TEST(Vector, Iterator)
 {
 	onesimus::Vector<int> vec(5);
@@ -91,6 +102,22 @@ TEST(Vector, ConstPreMultiplication)
         ASSERT_EQ(result[static_cast<int>(i)], 16);
 	}
 }
+
+TEST(Vector, MatrixVectorMultiplication)
+{
+	onesimus::Matrix<int> mat(3, 5);
+	std::fill(mat.begin(), mat.end(), 4);
+	onesimus::Vector<int> vec(5);
+	std::fill(vec.begin(), vec.end(), 5);
+
+	auto const result = mat * vec;
+	ASSERT_EQ(result.Size(), mat.Rows());
+	for (size_t ir = 0; ir < result.Size(); ++ir)
+	{
+		ASSERT_EQ(result(static_cast<int>(ir)), 100);
+	}
+}
+
 
 TEST(Vector, ConstDivision)
 {

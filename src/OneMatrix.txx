@@ -128,7 +128,7 @@ Matrix<T>
 	std::transform(m_data.cbegin(), m_data.cend(), m_data.begin(), std::bind2nd(std::divides<T>(), val));
 	return *this;
 }
-	
+
 template<typename T>
 Matrix<T>
 operator+(Matrix<T> const& m1, Matrix<T> const& m2)
@@ -161,6 +161,26 @@ Matrix<T>
 operator*(T val, Matrix<T> const& mat)
 {
 	return mat * val;
+}
+
+template<typename T>
+Matrix<T>
+operator*(Matrix<T> const& m1, Matrix<T> const& m2)
+{
+	Matrix<T> result(m1.Rows(), m2.Cols());
+	for (size_t ir = 0; ir < result.Rows(); ++ir)
+	{
+		for (size_t ic = 0; ic < result.Cols(); ++ic)
+		{
+			T val = 0;
+			for (size_t k = 0; k < m1.Cols(); ++k)
+			{
+				val += m1(ir, k) * m2(k, ic);
+			}
+			result(ir, ic) = val;
+		}
+	}
+	return result;
 }
 
 template<typename T>

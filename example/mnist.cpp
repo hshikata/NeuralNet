@@ -6,6 +6,10 @@
 int
 main(int argc, char** argv)
 {
+    onesimus::Matrix<int> mat(3, 5);
+    onesimus::Vector<int> vec(5);
+    auto const m = mat * vec;
+
     onesimus::NN::MNISTReader reader(onesimus::NN::train_images_idx3_ubyte, onesimus::NN::train_labels_idx1_ubyte);
 	auto const& labels = reader.Labels();
 	std::cout << "Labels: " << labels.size() << std::endl;

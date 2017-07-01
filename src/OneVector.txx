@@ -15,11 +15,6 @@ Vector<T>
 {}
 
 template<typename T>
-Vector<T>
-::Vector(Matrix<T> const& mat)
-{}
-
-template<typename T>
 size_t
 Vector<T>
 ::Size() const
@@ -135,6 +130,16 @@ Vector<T>
 operator*(T val, Vector<T> const& vec)
 {
 	return vec * val;
+}
+
+template<typename T>
+Vector<T>
+operator*(Matrix<T> const& mat, Vector<T> const& vec)
+{
+	Matrix<T> const m = operator*(mat, static_cast<Matrix<T>>(vec));
+	Vector<T> result(m.Rows());
+	std::copy(m.cbegin(), m.cend(), result.begin());
+	return result;
 }
 
 template<typename T>

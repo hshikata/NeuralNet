@@ -33,7 +33,7 @@ public:
 	Matrix& operator-=(Matrix const& mat);
 	Matrix& operator*=(T val);
 	Matrix& operator/=(T val);
-	
+
 private:
 	size_t m_rows, m_cols;
 	DataContainerType m_data;
@@ -54,6 +54,10 @@ operator*(Matrix<T> const& mat, T val);
 template<typename T>
 Matrix<T>
 operator*(T val, Matrix<T> const& mat);
+
+template<typename T>
+Matrix<T>
+operator*(Matrix<T> const& m1, Matrix<T> const& m2);
 
 template<typename T>
 Matrix<T>
