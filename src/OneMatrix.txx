@@ -1,5 +1,6 @@
 #ifndef onesimus_Matrix_txx
 #define onesimus_Matrix_txx
+#include <algorithm>
 #include <functional>
 
 namespace onesimus {

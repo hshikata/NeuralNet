@@ -16,13 +16,13 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 ADD_LIBRARY(gtest STATIC IMPORTED)
 SET_PROPERTY(
 	TARGET gtest
-	PROPERTY IMPORTED_LOCATION ${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARI_PREFIXES}gtest.a
+	PROPERTY IMPORTED_LOCATION ${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.a
 )
 
 ADD_LIBRARY(gtest_main STATIC IMPORTED)
 SET_PROPERTY(
 	TARGET gtest_main
-	PROPERTY IMPORTED_LOCATION ${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARI_PREFIXES}gtest_main.a
+	PROPERTY IMPORTED_LOCATION ${binary_dir}/googlemock/gtest/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.a
 )
 ENDIF ()
 
@@ -42,16 +42,16 @@ ADD_DEPENDENCIES(UnitTest GoogleTest)
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
 TARGET_LINK_LIBRARIES(
 	UnitTest 
-	debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARI_PREFIXES}gtest.lib
-	optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARI_PREFIXES}gtest.lib
+	debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.lib
+	optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest.lib
 )
 TARGET_LINK_LIBRARIES(
 	UnitTest 
-	debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARI_PREFIXES}gtest_main.lib
-	optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARI_PREFIXES}gtest_main.lib
+	debug ${binary_dir}/googlemock/gtest/Debug/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.lib
+	optimized ${binary_dir}/googlemock/gtest/Release/${CMAKE_FIND_LIBRARY_PREFIXES}gtest_main.lib
 )
 ELSE ()
 TARGET_LINK_LIBRARIES(UnitTest gtest gtest_main)
 ENDIF ()
 
-TARGET_LINK_LIBRARIES(UnitTest NeuralNet)
+TARGET_LINK_LIBRARIES(UnitTest NeuralNet ${CMAKE_THREAD_LIBS_INIT})
