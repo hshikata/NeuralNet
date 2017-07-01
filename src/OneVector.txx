@@ -24,7 +24,15 @@ size_t
 Vector<T>
 ::Size() const
 {
-	return this->Rows();
+	return Matrix<T>::Rows();
+}
+
+template<typename T>
+void
+Vector<T>
+::Resize(size_t size)
+{
+	Matrix<T>::Resize(size, 1);
 }
 
 template<typename T>
