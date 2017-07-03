@@ -8,6 +8,14 @@ TEST(Vector, Default)
     ASSERT_EQ(vec.Size(), 0);
 }
 
+TEST(Vector, Init)
+{
+	onesimus::Vector<int> const vec{ 1, 2, 3, 4, 5 };
+    ASSERT_EQ(vec.Size(), 5);
+	ASSERT_EQ(vec(0), 1);
+	ASSERT_EQ(vec[4], 5);
+}
+
 TEST(Vector, Size)
 {
     onesimus::Vector<int> vec(3);
@@ -21,6 +29,21 @@ TEST(Vector, Assignment)
 	ASSERT_EQ(vec(1), 10);
 	vec[2] = 8;
 	ASSERT_EQ(vec[2], 8);
+}
+
+TEST(Vector, CopyAssignment)
+{
+	onesimus::Vector<int> v1{ 1, 2, 3, 4 };
+	ASSERT_EQ(v1.Size(), 4);
+	ASSERT_EQ(v1(0), 1);
+
+	onesimus::Vector<int> v2{ 4, 5 };
+	ASSERT_EQ(v2.Size(), 2);
+	ASSERT_EQ(v2(0), 4);
+
+	v1 = v2;
+	ASSERT_EQ(v1.Size(), 2);
+	ASSERT_EQ(v1(0), 4);
 }
 
 TEST(Vector, CopyConstructor)
@@ -118,6 +141,18 @@ TEST(Vector, MatrixVectorMultiplication)
 	}
 }
 
+TEST(Vector, RowVectorColumnVectorMultiplication)
+{
+	onesimus::Vector<int> v1{ 1, 2, 3 };
+	onesimus::Vector<int> v2{ 2, 3, 4 };
+
+	auto const result = v1 * Transpose(v2);
+	ASSERT_EQ(result.Rows(), 3);
+	ASSERT_EQ(result.Cols(), 3);
+	ASSERT_EQ(result(0, 0), 2);
+	ASSERT_EQ(result(0, 1), 3);
+	ASSERT_EQ(result(1, 0), 4);
+}
 
 TEST(Vector, ConstDivision)
 {
@@ -130,4 +165,13 @@ TEST(Vector, ConstDivision)
 		ASSERT_EQ(result(static_cast<int>(i)), 1);
         ASSERT_EQ(result[static_cast<int>(i)], 1);
 	}
+}
+
+TEST(Vector, Dot)
+{
+	onesimus::Vector<int> const v1{ 1, 2, 3 };
+	onesimus::Vector<int> const v2{ 2, 3, 4 };
+
+	auto const result = Dot(v1, v2);
+	ASSERT_EQ(result, 20);
 }

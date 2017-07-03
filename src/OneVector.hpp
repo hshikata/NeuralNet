@@ -10,6 +10,7 @@ class Vector : public Matrix<T>
 public:
 	Vector();
 	Vector(size_t size);
+	Vector(std::initializer_list<T> const& init);
 	
 public:
 	void Resize(size_t size);
@@ -50,6 +51,10 @@ operator*(Matrix<T> const& mat, Vector<T> const& vec);
 template<typename T>
 Vector<T>
 operator/(Vector<T> const& vec, T val);
+
+template<typename T>
+T
+Dot(Vector<T> const& v1, Vector<T> const& v2);
 	
 } // end namespace onesimus
 

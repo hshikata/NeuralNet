@@ -8,19 +8,29 @@ namespace onesimus { namespace NN {
 class Network
 {
 public:
-	Network(std::initializer_list<size_t> const& sizes);
+	typedef float DataValueType;
+	typedef Matrix<DataValueType> MatrixType;
+	typedef Vector<DataValueType> VectorType;
+	typedef std::pair<VectorType, unsigned char> DataType;
 
 public:
-	std::vector<size_t> const& Size() const;
-	Vector<double> const& Bias(size_t layer) const;
-	Vector<double>& Bias(size_t layer);
-	Matrix<double> const& Weight(size_t layer) const;
-	Matrix<double>& Weight(size_t layer);
+	Network(std::initializer_list<size_t> const& layer);
+
+public:
+	std::vector<size_t> const& Layers() const;
 	
+	void SGD(std::vector<DataType> const& training_data, size_t epochs, size_t mini_batch_size, DataValueType eta, std::vector<DataType> const& test_data);
+
+protected:
+	void UpdateMiniBatch(std::vector<DataType> const& training_data, std::vector<size_t> const& indexes, size_t startIndex, size_t mini_batch_size, DataValueType eta);
+	void Backprop(DataType const& data, std::vector<MatrixType>& nabla_w, std::vector<VectorType>& nabla_b);
+	size_t Evaluate(std::vector<DataType> const& test_data) const;
+	VectorType FeedForward(VectorType const& input) const;
+
 private:
-	std::vector<size_t> m_size;
-	std::vector<Vector<double>> m_biases;
-	std::vector<Matrix<double>> m_weights;
+	std::vector<size_t> m_layers;
+	std::vector<MatrixType> m_weights;
+	std::vector<VectorType> m_biases;
 };
 	
 } // end namespace NN

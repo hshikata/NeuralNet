@@ -23,6 +23,26 @@ TEST(Matrix, Assignment)
 	ASSERT_EQ(mat(1, 1), 10);
 }
 
+TEST(Matrix, CopyAssignment)
+{
+	onesimus::Matrix<int> m1(3, 3);
+	std::fill(m1.begin(), m1.end(), 4);
+	ASSERT_EQ(m1.Rows(), 3);
+	ASSERT_EQ(m1.Cols(), 3);
+	ASSERT_EQ(m1(0, 0), 4);
+
+	onesimus::Matrix<int> m2(2, 4);
+	std::fill(m2.begin(), m2.end(), 6);
+	ASSERT_EQ(m2.Rows(), 2);
+	ASSERT_EQ(m2.Cols(), 4);
+	ASSERT_EQ(m2(0, 0), 6);
+
+	m1 = m2;
+	ASSERT_EQ(m1.Rows(), 2);
+	ASSERT_EQ(m1.Cols(), 4);
+	ASSERT_EQ(m1(0, 0), 6);
+}
+
 TEST(Matrix, Iterator)
 {
 	onesimus::Matrix<int> mat(5, 10);

@@ -9,6 +9,7 @@ class Matrix
 {
 public:
 	typedef std::vector<T> DataContainerType;
+	typedef typename DataContainerType::value_type value_type;
 	
 public:
 	Matrix();
@@ -62,6 +63,10 @@ operator*(Matrix<T> const& m1, Matrix<T> const& m2);
 template<typename T>
 Matrix<T>
 operator/(Matrix<T> const& mat, T val);
+
+template<typename T>
+Matrix<T>
+Transpose(Matrix<T> const& mat);
 	
 } // end namespace onesimus
 

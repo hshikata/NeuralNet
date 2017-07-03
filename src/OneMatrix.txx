@@ -192,6 +192,21 @@ operator/(Matrix<T> const& mat, T val)
 	return result;
 }
 
+template<typename T>
+Matrix<T>
+Transpose(Matrix<T> const& mat)
+{
+	Matrix<T> result(mat.Cols(), mat.Rows());
+	for (size_t ir = 0; ir < result.Rows(); ++ir)
+	{
+		for (size_t ic = 0; ic < result.Cols(); ++ic)
+		{
+			result(ir, ic) = mat(ic, ir);
+		}
+	}
+	return result;
+}
+
 } // namespace onesimus
 
 #endif // onesimus_Matrix_txx

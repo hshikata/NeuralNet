@@ -110,10 +110,9 @@ MNISTReader
         return;
     }
 
-    int const numPixels = numRows * numCols;
+    std::istreambuf_iterator<char> itr(fp);
     for (int i = 0; i < numItems; ++i)
     {
-        std::istream_iterator<unsigned char> itr(fp);
         auto& image = m_images.at(i);
         std::for_each(image.begin(), image.end(), [&](auto& v) { v = *itr++; });
     }

@@ -15,6 +15,14 @@ Vector<T>
 {}
 
 template<typename T>
+Vector<T>
+::Vector(std::initializer_list<T> const& init)
+: Matrix<T>(init.size(), 1)
+{
+	std::copy(init.begin(), init.end(), this->begin());
+}
+
+template<typename T>
 size_t
 Vector<T>
 ::Size() const
@@ -148,6 +156,20 @@ operator/(Vector<T> const& vec, T val)
 {
 	Vector<T> result(vec);
 	result /= val;
+	return result;
+}
+
+template<typename T>
+T
+Dot(Vector<T> const& v1, Vector<T> const& v2)
+{
+	T result = 0;
+	auto itr1 = v1.cbegin();
+	auto itr2 = v2.cbegin();
+	for (; itr1 != v1.cend(); ++itr1, ++itr2)
+	{
+		result += (*itr1) * (*itr2);
+	}
 	return result;
 }
 
